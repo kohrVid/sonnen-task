@@ -1,0 +1,2 @@
+class Radar < ApplicationRecord
+end
