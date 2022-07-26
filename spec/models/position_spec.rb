@@ -1,5 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Position, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { described_class.new }
+
+  describe '#radar' do
+    before do
+      subject.save
+    end
+
+    it 'must be present' do
+      expect(subject).to_not be_valid
+      expect(subject.errors[:radar]).to include("must exist")
+    end
+  end
 end
