@@ -1,3 +1,5 @@
+require "./lib/attack_mode.rb"
+
 class RadarController < ApplicationController
   def create
     radars = radar_params[:radar].map do |radar|
@@ -10,7 +12,7 @@ class RadarController < ApplicationController
       )
     end
 
-    attacked_radar = radars[0]
+    attacked_radar = AttackMode.call("closest-first", radars)
 
     render json: attacked_radar.as_json
   end
