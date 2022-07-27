@@ -5,6 +5,7 @@ class RadarController < ApplicationController
     radars = radar_params[:radar].map do |radar|
       position = radar[:position]
       targets = radar[:targets]
+      targets = [targets] if !targets.is_a?(Array)
 
       Radar.create(
         position_attributes: position,
@@ -25,7 +26,7 @@ class RadarController < ApplicationController
       attack_mode: [],
       radar: [
         position: [:x, :y],
-        targets: [:type, :damage]
+        targets: [:type, :damage, :number]
       ]
     )
   end

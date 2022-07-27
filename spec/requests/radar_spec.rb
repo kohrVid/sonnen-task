@@ -118,5 +118,22 @@ RSpec.describe "Radars", type: :request do
         )
       end
     end
+
+    context 'when radar only contains a single target' do
+      it "should return a radar object" do
+        post '/radar', params: {
+          "attack-mode": ["furthest-first"],
+          "radar": [
+            {"position":{"x":70,"y":91},"targets":[{"type":"T-X","damage":20},{"type":"T7-T","damage":90}]},
+            {"position":{"x":30,"y":95},"targets":{"type":"mech","number":20}},
+          ]
+        }
+
+        json = JSON.parse(response.body).deep_symbolize_keys
+        expect(json).to eq(
+          {"position":{"x":70,"y":91},"targets":["T7-T","T-X"]}
+        )
+      end
+    end
   end
 end
