@@ -4,16 +4,15 @@ class RadarController < ApplicationController
       position = radar[:position]
       targets = radar[:targets]
 
-      Radar.new(
+      Radar.create(
         position_attributes: position,
         targets_attributes: targets
       )
     end
 
-    render json: {
-      position: radars[0].position.as_json(only: [:x, :y]),
-      targets: radars[0].targets.as_json(only: :target_type).flat_map(&:values)
-    }
+    attacked_radar = radars[0]
+
+    render json: attacked_radar.as_json
   end
 
   def radar_params
