@@ -8,7 +8,7 @@ class Radar < ApplicationRecord
     {
       position: position.as_json,
       targets: targets.where.not(damage: nil)
-        .order("damage desc").map(&:target_type)
+        .order("damage desc")&.map(&:target_type)
     }
   end
 end

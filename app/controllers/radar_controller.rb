@@ -12,14 +12,14 @@ class RadarController < ApplicationController
       )
     end
 
-    attacked_radar = AttackMode.call("closest-first", radars)
+    attacked_radar = AttackMode.call(radar_params[:attack_mode], radars)
 
     render json: attacked_radar.as_json
   end
 
   def radar_params
-    params.permit(
-      :attack_mode,
+    params.deep_transform_keys(&:underscore).permit(
+      attack_mode: [],
       radar: [
         position: [:x, :y],
         targets: [:type, :damage]

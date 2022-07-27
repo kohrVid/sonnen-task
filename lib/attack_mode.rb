@@ -9,8 +9,8 @@ class AttackMode
       "prioritize-t-x" => AttackModes::PrioritizeTX
     }
 
-    def call(mode, radars)
-      MODES[mode].attack(radars)
+    def call(modes, radars)
+      MODES[modes.first].attack(radars)
     end
   end
 end
