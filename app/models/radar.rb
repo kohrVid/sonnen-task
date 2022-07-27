@@ -4,7 +4,7 @@ class Radar < ApplicationRecord
   accepts_nested_attributes_for :position, allow_destroy: true
   accepts_nested_attributes_for :targets, allow_destroy: true
 
-  def as_json(options = { target_order: "damage desc" })
+  def as_json(options = { target_order: "damage DESC" })
     sanitized_sql_statement = ActiveRecord::Base.sanitize_sql_array(
       [options[:target_order]]
     )

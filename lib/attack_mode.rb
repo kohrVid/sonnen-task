@@ -12,5 +12,14 @@ class AttackMode
     def call(modes, radars)
       MODES[modes.first]&.attack(radars)
     end
+
+    def target_order(mode)
+      case mode
+      when "priorize-t-x"
+        AttackModes::PrioritizeTX.target_order
+      else
+       "damage DESC"
+      end
+    end
   end
 end
