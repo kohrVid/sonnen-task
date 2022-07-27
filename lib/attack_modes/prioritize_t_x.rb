@@ -2,7 +2,9 @@ module AttackModes
   class PrioritizeTX
     class << self
       def attack(radars)
-        raise "Not implemented"
+        radars.flat_map do |radar|
+          radar.targets.select{ |target| target.target_type == "T-X" }
+        end.map(&:radar).first
       end
     end
   end

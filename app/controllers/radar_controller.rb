@@ -14,6 +14,18 @@ class RadarController < ApplicationController
 
     attacked_radar = AttackMode.call(radar_params[:attack_mode], radars)
 
+    if radar_params[:attack_mode][0] == "priorize-t-x"
+      render json: attacked_radar.as_json(
+        {
+          target_order: <<-SQL
+            CASE target_type WHEN 'T-X' THEN 0 else target_type END
+          SQL
+        }
+      )
+
+      return
+    end
+
     render json: attacked_radar.as_json
   end
 

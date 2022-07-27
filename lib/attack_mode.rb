@@ -6,11 +6,11 @@ class AttackMode
       "closest-first" => AttackModes::ClosestFirst,
       "furthest-first" => AttackModes::FurthestFirst,
       "avoid-crossfire" => AttackModes::AvoidCrossfire,
-      "prioritize-t-x" => AttackModes::PrioritizeTX
+      "priorize-t-x" => AttackModes::PrioritizeTX
     }
 
     def call(modes, radars)
-      MODES[modes.first].attack(radars)
+      MODES[modes.first]&.attack(radars)
     end
   end
 end
