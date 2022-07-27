@@ -81,5 +81,42 @@ RSpec.describe "Radars", type: :request do
         )
       end
     end
+
+    context 'when the AvoidCrossfire Attack Mode is used' do
+      it "should return a radar object" do
+        post '/radar', params: {
+          "attack-mode": ["avoid-crossfire"],
+          "radar": [
+            {
+              "position": { "x": 0, "y": 20 },
+              "targets": [
+                { "type": "T7-T", "damage": 30 },
+                { "type": "HK-Bomber", "damage": 80 },
+                { "type": "Human"}
+              ]
+            },
+            {
+              "position": { "x": 0, "y": 80 },
+              "targets": [
+                { "type": "HK-Tank", "damage": 20 }
+              ]
+            },
+            {
+              "position": { "x": 0, "y": 70 },
+              "targets": [
+                { "type": "T-X", "damage": 20 },
+                { "type": "T7-T", "damage": 90 },
+                { "type": "HK-Bomber", "damage": 80 }
+              ]
+            }
+          ]
+        }
+
+        json = JSON.parse(response.body).deep_symbolize_keys
+        expect(json).to eq(
+          {"position":{"x":0,"y":70},"targets":["T7-T","HK-Bomber","T-X"]}
+        )
+      end
+    end
   end
 end
