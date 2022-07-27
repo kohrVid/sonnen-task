@@ -14,12 +14,7 @@ class AttackMode
     end
 
     def target_order(mode)
-      case mode
-      when "priorize-t-x"
-        AttackModes::PrioritizeTX.target_order
-      else
-       "damage DESC"
-      end
+      MODES[mode].target_order
     end
   end
 end

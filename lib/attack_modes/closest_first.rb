@@ -1,5 +1,7 @@
+require_relative 'base'
+
 module AttackModes
-  class ClosestFirst
+  class ClosestFirst < Base
     class << self
       def attack(radars)
         radars.map do |radar|

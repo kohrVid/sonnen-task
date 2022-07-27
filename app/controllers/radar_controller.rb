@@ -14,7 +14,10 @@ class RadarController < ApplicationController
     end
 
     attacked_radar = AttackMode.call(radar_params[:attack_mode], radars)
-    target_order = AttackMode.target_order(radar_params[:attack_mode][0])
+
+    target_order = radar_params[:attack_mode].map do |mode|
+      AttackMode.target_order(mode)
+    end.uniq.join(", ")
 
     render json: attacked_radar.as_json({
       target_order: target_order

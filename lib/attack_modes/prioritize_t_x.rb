@@ -1,5 +1,7 @@
+require_relative 'base'
+
 module AttackModes
-  class PrioritizeTX
+  class PrioritizeTX < Base
     class << self
       def attack(radars)
         radars.flat_map do |radar|

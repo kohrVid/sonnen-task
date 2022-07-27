@@ -135,5 +135,41 @@ RSpec.describe "Radars", type: :request do
         )
       end
     end
+
+    xcontext 'when Attack Modes are chained' do
+      it "should return a radar object" do
+        post '/radar', params: {
+          "attack-mode": ["closest-first", "priorize-t-x"],
+          "radar": [
+            {
+              "position": { "x": 0, "y": 20 },
+              "targets": [
+                { "type": "T7-T", "damage":30 },
+                { "type": "HK-Bomber", "damage": 80 }
+              ]
+            },
+            {
+              "position": { "x": 0, "y": 80 },
+              "targets": [
+                { "type": "HK-Tank", "damage": 20 }
+              ]
+            },
+            {
+              "position": { "x": 0, "y": 90 },
+              "targets": [
+                { "type": "T-X", "damage": 20 },
+                { "type": "T7-T", "damage": 30 },
+                { "type": "HK-Bomber", "damage": 80 }
+              ]
+            }
+          ]
+        }
+
+        json = JSON.parse(response.body).deep_symbolize_keys
+        expect(json).to eq(
+         {"position":{"x":0,"y":20},"targets":["T-X","HK-Bomber"]}
+        )
+      end
+    end
   end
 end

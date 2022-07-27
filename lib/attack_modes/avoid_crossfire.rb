@@ -1,5 +1,7 @@
+require_relative 'base'
+
 module AttackModes
-  class AvoidCrossfire
+  class AvoidCrossfire < Base
     class << self
       def attack(radars)
         radars.reject do |radar|
